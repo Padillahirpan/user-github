@@ -1,4 +1,4 @@
-package com.irpn.usersgithub.utils
+package com.irpn.base.utils
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 // Created by irpn on 2/8/2021.
 // Email : padillahirpan8@gmail.com
 //
-class EditTextUtils {
+open class EditTextUtils {
 
     fun <T> throttleFirst(
         skipMs: Long = 1200L,
@@ -27,7 +27,7 @@ class EditTextUtils {
         }
     }
 
-    public fun <T> debounce(
+    fun <T> debounce(
         waitMs: Long = 1200L,
         coroutineScope: CoroutineScope,
         destinationFunction: (T) -> Unit

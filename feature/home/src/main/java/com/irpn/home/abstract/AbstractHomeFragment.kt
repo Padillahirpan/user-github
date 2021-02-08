@@ -6,10 +6,6 @@ import com.irpn.base.core.BaseFragment
 import com.irpn.base.model.DataState
 import com.irpn.home.model.GithubUserResponse
 import com.irpn.home.viewmodel.HomeViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
@@ -40,7 +36,7 @@ abstract class AbstractHomeFragment : BaseFragment<HomeViewModel>() {
                 }
                 is DataState.Failure -> {
                     updateEmpty(it.errorMessage)
-                    Timber.e("AbstractHomeFragment, ${it.errorMessage} and the status code: ${it.errorCode}")
+                    Timber.e("xyz AbstractHomeFragment, ${it.errorMessage} and the status code: ${it.errorCode}")
                 }
             }
         })
@@ -48,12 +44,6 @@ abstract class AbstractHomeFragment : BaseFragment<HomeViewModel>() {
 
     fun loadMore() {
         viewModel.searchUser(keywordSearch, page)
-    }
-
-    fun searchUser(){
-        page = 1
-        keywordSearch = ""
-        viewModel.searchUser(keywordSearch)
     }
 
     fun getTotalPage(): Int = viewModel.totalPage
@@ -69,14 +59,8 @@ abstract class AbstractHomeFragment : BaseFragment<HomeViewModel>() {
         isSearch = true
         clearTotal()
         lastTextChanged = System.currentTimeMillis()
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                delay(500)
-                viewModel.searchUser(keywordSearch)
-            } catch (t: Throwable) {
-                Timber.d("AbstractHomeFragment -> ${t.message}")
-            }
-        }
+
+        viewModel.searchUser(keywordSearch)
     }
 
     private fun prepareData(data: List<GithubUserResponse>) {

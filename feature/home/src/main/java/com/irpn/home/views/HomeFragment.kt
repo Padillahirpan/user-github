@@ -1,9 +1,10 @@
 package com.irpn.home.views
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.irpn.base.contract.FragmentNavigation
@@ -11,18 +12,13 @@ import com.irpn.base.extension.aftertextChanged
 import com.irpn.base.extension.invisible
 import com.irpn.base.extension.showKeyboard
 import com.irpn.base.extension.visible
-import com.irpn.base.extensions.showLongToast
 import com.irpn.base.extensions.showShortToast
-import com.irpn.base.utils.CheckScrollListener
 import com.irpn.home.abstract.AbstractHomeFragment
 import com.irpn.home.model.GithubUserResponse
 import com.irpn.users.R
 import com.irpn.home.views.adapter.UserAdapter
 import kotlinx.android.synthetic.main.fragment_user.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 
@@ -46,20 +42,44 @@ class HomeFragment : AbstractHomeFragment(),
 
     private fun setupUI() {
         swipeRefresh.isRefreshing = false
-        edtSearch.aftertextChanged {
-            swipeRefresh.isRefreshing = true
-            if (it.isNotEmpty()) {
-                ivClose.visible()
-                searchUserPage(it)
-            } else {
-                clearList()
-                isSearch = false
-                ivClose.invisible()
+        edtSearch.addTextChangedListener(object: TextWatcher{
+            private var searchFor = ""
+
+            override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
-        }
+
+            override fun afterTextChanged(s: Editable?) {
+
+                val searchText = s.toString().trim()
+                if (searchText.isEmpty()) {
+                    clearList()
+                    isSearch = false
+                    ivClose.invisible()
+                } else {
+                    if (searchText == searchFor)
+                        return
+
+                    searchFor = searchText
+
+                    GlobalScope.launch(Dispatchers.Main) {
+                        delay(500)
+                        if (searchText != searchFor)
+                            return@launch
+
+                        ivClose.visible()
+                        swipeRefresh.isRefreshing = true
+                        searchUserPage(searchFor)
+                    }
+                }
+            }
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
 
         swipeRefresh.setOnRefreshListener {
-            clearList()
+            edtSearch.setText("")
+            isSearch = false
         }
 
         ivClose.setOnClickListener {
@@ -78,7 +98,7 @@ class HomeFragment : AbstractHomeFragment(),
 
     private fun setupAdapter() {
         with(rvSchool) {
-            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            layoutManager = LinearLayoutManager(
                 context,
                 RecyclerView.VERTICAL,
                 false
@@ -97,10 +117,10 @@ class HomeFragment : AbstractHomeFragment(),
                             schoolAdapter.onLoadMore()
                             GlobalScope.launch(Dispatchers.Main) {
                                 try {
-                                    delay(800)
+                                    delay(350)
                                     loadMore()
                                 } catch (t: Throwable) {
-                                    Timber.d("HomeFragment -> ${t.message}")
+                                    Timber.d("xyz HomeFragment -> ${t.message}")
                                 }
                             }
                         }
@@ -123,8 +143,7 @@ class HomeFragment : AbstractHomeFragment(),
             isLoading = false
         }
 
-        Timber.d("xyz this is updateDate: $isSearch and isLoading $isLoading")
-        if (isSearch) {
+        if (page == 1) {
             listItems.clear()
             listItems.addAll(data)
         } else {
@@ -182,6 +201,5 @@ class HomeFragment : AbstractHomeFragment(),
 
     override fun onItemSelected(item: GithubUserResponse) {
         context?.showShortToast(item.login)
-        Timber.d("OnClicked: "+item.login)
     }
 }
