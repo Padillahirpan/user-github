@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.irpn.base.contract.FragmentNavigation
@@ -41,7 +42,7 @@ class HomeFragment : AbstractHomeFragment(),
     }
 
     private fun setupUI() {
-        swipeRefresh.isRefreshing = false
+        pbLoading.visibility = View.GONE
         edtSearch.addTextChangedListener(object: TextWatcher{
             private var searchFor = ""
 
@@ -67,7 +68,7 @@ class HomeFragment : AbstractHomeFragment(),
                             return@launch
 
                         ivClose.visible()
-                        swipeRefresh.isRefreshing = true
+                        pbLoading.visibility = View.VISIBLE
                         searchUserPage(searchFor)
                     }
                 }
@@ -76,11 +77,6 @@ class HomeFragment : AbstractHomeFragment(),
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
-
-        swipeRefresh.setOnRefreshListener {
-            edtSearch.setText("")
-            isSearch = false
-        }
 
         ivClose.setOnClickListener {
             edtSearch.setText("")
@@ -131,7 +127,7 @@ class HomeFragment : AbstractHomeFragment(),
     }
 
     override fun updateData(data: List<GithubUserResponse>) {
-        if (swipeRefresh.isRefreshing) swipeRefresh.isRefreshing = false
+        if (pbLoading.isVisible) pbLoading.visibility = View.GONE
 
         if (data.isEmpty()) ctEmptyState.visibility = View.VISIBLE
         else ctEmptyState.visibility = View.GONE
@@ -157,7 +153,7 @@ class HomeFragment : AbstractHomeFragment(),
     }
 
     override fun clearList() {
-        if (swipeRefresh.isRefreshing) swipeRefresh.isRefreshing = false
+        if (pbLoading.isVisible) pbLoading.visibility = View.GONE
 
         ctEmptyState.visibility = View.GONE
 
@@ -174,7 +170,7 @@ class HomeFragment : AbstractHomeFragment(),
     }
 
     override fun updateEmpty(errorMessage: String) {
-        if (swipeRefresh.isRefreshing) swipeRefresh.isRefreshing = false
+        if (pbLoading.isVisible) pbLoading.visibility = View.GONE
 
         ctEmptyState.visibility = View.VISIBLE
 
