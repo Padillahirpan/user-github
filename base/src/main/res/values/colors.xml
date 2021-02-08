@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/cerulean</color>
+    <color name="colorPrimaryDark">@color/allports</color>
+    <color name="colorAccent">@color/malibu</color>
+    <color name="default_status_bar_color">#F3F3F3</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="colorRed">#e83c33</color>
+    <color name="background">#F9F9F9</color>
+    <color name="brown_grey">#a7a7a7</color>
+    <color name="charcoal_grey">#36454f</color>
+    <color name="greyish">#a7a7a7</color>
+    <color name="feedback_rating_color">#ffd932</color>
+    <color name="white_default">@android:color/white</color>
+    <color name="alto">#dadada</color>
+    <color name="de_york">#74c69d</color>
+    <color name="silver_tree">#52b788</color>
+    <color name="amazon">#2D6A4F</color>
+    <color name="allports">#0068AA</color>
+    <color name="cerulean">#0095dc</color>
+    <color name="malibu">#60C5FF</color>
+</resources>

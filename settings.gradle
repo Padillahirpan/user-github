@@ -1,0 +1,4 @@
+include ':feature:home'
+include ':base'
+include ':app'
+rootProject.name = "usersgithub"

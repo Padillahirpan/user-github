@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">base</string>
+    <string name="no_connection">Internet connection not available</string>
+    <string name="default_error_network">We are experiencing problem to connect to our server, please try again later&#8230;</string>
+</resources>

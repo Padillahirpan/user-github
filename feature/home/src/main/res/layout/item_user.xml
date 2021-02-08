@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dimen_6"
+    android:background="@color/white_default"
+    android:padding="@dimen/dimen_12">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ivSchoolCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/dimen_10"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivUserImage"
+            android:layout_width="@dimen/dimen_80"
+            android:layout_height="@dimen/dimen_70"
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/ic_launcher" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/ivSchoolCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivSchoolCard"
+        app:layout_constraintTop_toTopOf="@+id/ivSchoolCard">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvUserName"
+            style="@style/TextView.SemiBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/font_16"
+            android:layout_marginEnd="@dimen/font_16"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textSize="@dimen/font_16" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvUserType"
+            style="@style/TextView.Normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/font_16"
+            android:layout_marginEnd="@dimen/font_16"
+            android:textSize="@dimen/font_12" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

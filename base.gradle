@@ -1,0 +1,85 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: "${rootProject.rootDir}/env.properties"
+
+configurations {
+    ktlint
+}
+
+android {
+    compileSdkVersion sdk_compile_version
+
+    buildTypes {
+        debug {
+            buildConfigField 'Boolean', "INTERNAL", "true"
+            ext.enableCrashlytics = true
+        }
+        release {
+            minifyEnabled true
+            buildConfigField 'Boolean', "INTERNAL", "false"
+        }
+
+    }
+    defaultConfig {
+        minSdkVersion sdk_min_version
+        targetSdkVersion sdk_target_version
+        versionCode build_version_code
+        versionName build_version_name
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+        unitTests.returnDefaultValues = true
+    }
+}
+
+dependencies {
+    ktlint "com.github.shyiko:ktlint:0.31.0"
+    testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test:runner:$test_runner_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
+
+    def coroutinesVersion = '1.2.1'
+    //testing coroutines
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+    testImplementation 'com.jraska.livedata:testing-ktx:1.1.0'
+    //robolectric setup with espresso
+    testImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation 'androidx.test:core:1.2.0'
+    testImplementation 'androidx.test:core-ktx:1.2.0'
+    testImplementation 'androidx.test:rules:1.2.0'
+    testImplementation 'org.robolectric:robolectric:4.3'
+    testImplementation "androidx.test:runner:1.2.0"
+    testImplementation "androidx.test.ext:junit:1.1.1"
+    testImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+    testImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+    testImplementation 'androidx.test.ext:truth:1.2.0'
+    testImplementation 'com.google.truth:truth:0.42'
+    testImplementation "com.squareup.okhttp3:mockwebserver:4.8.1"
+
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    classpath = configurations.ktlint
+    main = "com.github.shyiko.ktlint.Main"
+    args "--reporter=plain", "--reporter=checkstyle,output=${buildDir}/ktlint.xml", "src/**/*.kt"
+    // to generate report in checkstyle format prepend following args:
+    // "--reporter=plain", "--reporter=checkstyle,output=${buildDir}/ktlint.xml"
+    // see https://github.com/shyiko/ktlint#usage for more
+}
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    classpath = configurations.ktlint
+    main = "com.github.shyiko.ktlint.Main"
+    args "-F", "src/**/*.kt"
+}

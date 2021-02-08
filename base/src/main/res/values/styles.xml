@@ -1,0 +1,108 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="TranslucentStatusTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+    </style>
+
+    <style name="PageLoadingProgressBar" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTint">@color/colorAccent</item>
+        <item name="android:colorControlNormal">@color/background</item>
+        <item name="android:progressBackgroundTint">@color/background</item>
+    </style>
+    a
+    <style name="TextView.Normal" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/charcoal_grey</item>
+        <item name="android:textSize">@dimen/font_12</item>
+        <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TextView.SemiBold" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/charcoal_grey</item>
+        <item name="android:textSize">@dimen/font_12</item>
+        <item name="android:fontFamily">@font/opensans_semibold</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TextView.Bold" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/charcoal_grey</item>
+        <item name="android:textSize">@dimen/font_12</item>
+        <item name="android:fontFamily">@font/opensans_bold</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TextView.Normal.Poppins" parent="TextView.Normal">
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="TextView.SemiBold.Poppins" parent="TextView.SemiBold">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+    </style>
+
+    <style name="TextView.Bold.Poppins" parent="TextView.Bold">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="FeedbackRatingBar" parent="AppTheme">
+        <item name="colorControlNormal">@color/greyish</item>
+        <item name="colorControlActivated">@color/feedback_rating_color</item>
+    </style>
+
+    <style name="BorderlessButton" parent="Widget.AppCompat.Button.Borderless" />
+
+    <style name="ButtonPositive" parent="BorderlessButton">
+        <item name="android:layout_height">@dimen/dimen_50</item>
+        <item name="android:textSize">@dimen/font_16</item>
+        <item name="android:background">@drawable/bg_rounded_btn_state</item>
+        <item name="android:textColor">@color/white_default</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!--BottomSheetDialog-->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_radius_top</item>
+    </style>
+
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="android:textSize">@dimen/font_10</item>
+        <item name="fontFamily">@font/opensans</item>
+    </style>
+
+    <!--style for cardview start-->
+    <style name="bottomSheetCardTheme" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay_card_custom_corners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/dimen_10</item>
+        <item name="cornerSizeTopLeft">@dimen/dimen_10</item>
+        <item name="cornerSizeBottomRight">@dimen/dimen_0</item>
+        <item name="cornerSizeBottomLeft">@dimen/dimen_0</item>
+        <item name="android:padding">0dp</item>
+    </style>
+    <!--style for cardview end-->
+
+</resources>
